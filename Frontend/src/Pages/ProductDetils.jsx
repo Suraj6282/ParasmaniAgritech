@@ -96,12 +96,6 @@ const ProductPage = () => {
                 whileHover={{ scale: 1.03, ...glowEffect.visible }}
               >
                 <img src={mainImage} alt="AGRITECH 5000 Harvester" className="w-full h-full object-cover transition-transform duration-700" loading="lazy" />
-                <motion.div
-                  className="absolute inset-0 bg-gray-900/20 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center"
-                  whileHover={{ opacity: 1 }}
-                >
-                  <span className="bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-3 rounded-full text-sm font-semibold shadow-lg">Explore in 3D</span>
-                </motion.div>
               </motion.div>
               <motion.div className="flex flex-wrap gap-4 justify-center" variants={staggerContainer}>
                 {thumbnailImages.map((image, index) => (

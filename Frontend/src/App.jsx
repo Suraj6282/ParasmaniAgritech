@@ -19,6 +19,8 @@ import Wishlist from './Pages/Wishlist';
 import Checkout from './Pages/Checkout';
 import TermsAndCondition from "./Pages/TermsAndCondition"
 import PrivacyPolicy from "./Pages/PrivacyPolicy"
+import SarchPage from './Pages/Sarch';
+import OrderConfirmed from './Pages/OrderConfirmed';
 
 const App = () => {
   return (
@@ -26,7 +28,7 @@ const App = () => {
      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path='/Productsdetails' element={<ProductPage/>}/>
+        <Route path='/Product-details' element={<ProductPage/>}/>
         <Route path="/About" element={<AboutUs/>} />
         <Route path="/Contact" element={<Contact/>} />
         <Route path="/cart" element={<Cart/>} />
@@ -35,6 +37,8 @@ const App = () => {
         <Route path="/checkout" element={<Checkout/>} />
         <Route path="/terms" element={<TermsAndCondition/>} />
         <Route path="/privacy" element={<PrivacyPolicy/>} />
+        <Route path="/search" element={<SarchPage/>} />
+        <Route path="/order-confirmed" element={<OrderConfirmed />} />
      </Routes>
     </Router>
   )

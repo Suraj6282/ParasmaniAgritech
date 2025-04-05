@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { FaWhatsapp } from "react-icons/fa";
 
-
 // Custom WhatsApp Icon
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -20,10 +19,27 @@ export default function Home() {
     }
   };
 
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.95 },
+    visible: { opacity: 1, scale: 1 }
+  };
+
+  const iconSwing = {
+    visible: {
+      rotate: [0, 5, -5, 0],
+      y: [0, -2, 2, 0],
+      transition: { repeat: Infinity, duration: 2, ease: "easeInOut" }
+    }
+  };
+
   // Animation variants
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const staggerContainer = {
@@ -33,7 +49,11 @@ export default function Home() {
 
   const zoomIn = {
     hidden: { scale: 0.8, opacity: 0 },
-    visible: { scale: 1, opacity: 1, transition: { duration: 0.5, ease: "easeOut" } },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
   };
 
   return (
@@ -99,23 +119,59 @@ export default function Home() {
         </motion.div>
 
         <motion.div
-          className="relative lg:left-12 w-full md:left-8 flex justify-center md:justify-end"
-          initial="hidden"
-          animate="visible"
-          variants={zoomIn}
+          className="lg:left-12 w-full md:left-8 flex justify-center md:justify-end"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
         >
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-9xl xl:text-[8rem] font-black text-white drop-shadow-lg text-center md:text-right">
-            PARASMANI
-          </h2>
-          {/* Small static div with yellow background */}
-          <span className="absolute bottom-28 right-0 bg-[#F0A04B] cursor-pointer text-white rounded-full w-12 h-12 sm:w-10 sm:h-10 md:w-20 md:h-10 flex items-center justify-center text-xl sm:text-2xl font-bold shadow-md">
-            <motion.span
-              transitioned={{ duration: 0.6, ease: "easeInOut" }}
-              className="text-black font-bold"
+          <div className="relative mt-5">
+            <motion.h2
+              className="text-3xl flex-col flex sm:text-5xl md:text-6xl lg:text-8xl xl:text-[8rem] font-black text-white drop-shadow-lg text-center md:text-right"
+              initial={{ opacity: 0.7, scale: 0.95 }}
+              animate={{
+                opacity: [0.7, 1, 0.7], // Pulsing opacity
+                scale: [0.95, 1, 0.95], // Subtle scale animation
+                filter: [
+                  "drop-shadow(4px 4px 20px rgba(255, 255, 224, 0.8))", // Light yellow glow
+                  "drop-shadow(4px 4px 20px rgba(255, 193, 7, 0.6))", // Dark yellow glow
+                  "drop-shadow(4px 4px 20px rgba(255, 255, 224, 0.8))", // Back to light yellow
+                ],
+              }}
+              transition={{
+                duration: 2.5, // Animation duration
+                ease: "easeInOut",
+                repeat: Infinity, // Loops indefinitely
+                times: [0, 0.5, 1], // Timing for keyframes
+              }}
             >
-              TM
+              PARASMANI
+              <p className="text-sm text-zinc-300">Agritech</p>
+            </motion.h2>
+            {/* Small static div with yellow background */}
+            <motion.span
+              className="absolute left-45 bottom-14 w-8 h-6 text-md font-bold shadow-md lg:bottom-33 lg:left-170 md:bottom-20 md:text-md bg-[#F0A04B] cursor-pointer text-white rounded-full sm:w-10 sm:h-8 sm:left-65 sm:bottom-16 md:w-20 md:h-10 flex items-center justify-center sm:text-lg"
+              initial={{ y: 0 }}
+              animate={{ y: [-1, 1, 0] }} // Subtle bounce effect
+              transition={{
+                duration: 1.5,
+                ease: "easeInOut",
+                repeat: Infinity,
+              }}
+            >
+              <motion.span
+                initial={{ rotate: 0 }}
+                animate={{ rotate: [0, 5, -5, 0] }} // Slight wobble
+                transition={{
+                  duration: 1,
+                  ease: "easeInOut",
+                  repeat: Infinity,
+                }}
+                className="text-black font-bold"
+              >
+                TM
+              </motion.span>
             </motion.span>
-          </span>
+          </div>
         </motion.div>
       </section>
 
@@ -172,7 +228,7 @@ export default function Home() {
               Company
             </h3>
             <ul className="space-y-2 sm:space-y-3 text-gray-300 text-sm sm:text-base md:text-lg">
-              {["About", "Contact", "Terms","Privacy"].map((item) => (
+              {["About", "Contact", "Terms", "Privacy"].map((item) => (
                 <motion.li
                   key={item}
                   whileHover={{ x: 5 }}
@@ -189,50 +245,54 @@ export default function Home() {
             </ul>
           </motion.div>
 
-          <motion.div variants={fadeInUp}>
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#F0A04B] mb-4 sm:mb-6">
+          <motion.div variants={itemVariants} className="text-center pb-8">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#F0A04B] mb-6">
               Follow Us
             </h3>
-            <div className="flex gap-4 sm:gap-6">
+            <div className="relative flex justify-between items-center gap-4 sm:gap-6 md:gap-5 max-w-xl mx-auto">
+              {/* Rope Background */}
+              <div 
+                className="absolute h-1 bg-[#8B4513]  rounded-full top-[-20px] z-5" 
+                style={{ 
+                  backgroundImage: "linear-gradient(to right, #8B4513, #D2691E)",
+                  width: "calc(100% + 10px)", // Slightly wider than icons
+                  left: "-8px",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.2)" // Subtle shadow for depth
+                }}
+              ></div>
+              
               {[
-                {
-                  Icon: Facebook,
-                  name: "Facebook",
-                  color: "#1877F2",
-                  link: "https://www.facebook.com/parasmaniagritech",
-                },
-                {
-                  Icon: Instagram,
-                  name: "Instagram",
-                  color: "#E4405F",
-                  link: "https://www.instagram.com/parasmani_agritech_",
-                },
-                {
-                  Icon: FaWhatsapp,
-                  name: "WhatsApp",
-                  color: "#25D366",
-                  link: "https://wa.me/9909632139",
-                },
-                {
-                  Icon: Youtube,
-                  name: "YouTube",
-                  color: "#FF0000",
-                  link: "https://www.youtube.com/@Parasmaniagritech",
-                },
+                { Icon: Facebook, name: "Facebook", color: "#1877F2", link: "https://www.facebook.com/parasmaniagritech" },
+                { Icon: Instagram, name: "Instagram", color: "#E4405F", link: "https://www.instagram.com/parasmani_agritech_" },
+                { Icon: FaWhatsapp, name: "WhatsApp", color: "#25D366", link: "https://wa.me/9909632139" },
+                { Icon: Youtube, name: "YouTube", color: "#FF0000", link: "https://www.youtube.com/@Parasmaniagritech" },
               ].map(({ Icon, name, color, link }) => (
                 <motion.div
                   key={name}
-                  whileHover={{ y: -5 }}
-                  transition={{ duration: 0.3 }}
+                  variants={iconSwing}
+                  animate="visible"
+                  className="relative flex flex-col items-center z-0"
                 >
+                  {/* Rope Hook - Realistic Design */}
+                  <div 
+                    className="w-1 h-8 bg-[#8B4513] absolute top-[-20px] z-10 rounded-t-sm" 
+                    style={{ 
+                      backgroundImage: "linear-gradient(to bottom, #8B4513, #A0522D)",
+                      boxShadow: "1px 1px 2px rgba(0,0,0,0.2)" // Slight shadow for realism
+                    }}
+                  ></div>
                   <Link
                     to={link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="transition-colors"
-                    style={{ color: color }}
+                    className="transition-colors z-20"
                   >
-                    <Icon size={24} className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
+                    <motion.div
+                      whileHover={{ y: -5, rotate: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Icon size={24} color={color} className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
+                    </motion.div>
                     <span className="sr-only">{name}</span>
                   </Link>
                 </motion.div>
@@ -249,9 +309,27 @@ export default function Home() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-5xl sm:text-[4rem] md:text-[6rem] lg:text-[8rem] xl:text-[12rem] font-black text-white opacity-20 absolute -bottom-10 sm:-bottom-12 md:-bottom-20 lg:-bottom-30 xl:-bottom-30">
+          <motion.h2
+            className="text-5xl sm:text-[4rem] md:text-[6rem] lg:text-[8rem] xl:text-[12rem] font-black text-white absolute -bottom-10 sm:-bottom-12 md:-bottom-20 lg:-bottom-30 xl:-bottom-30"
+            initial={{ opacity: 0.2, scale: 0.95 }}
+            animate={{
+              opacity: [0.2, 0.4, 0.2], // Pulsing opacity
+              scale: [0.95, 1, 0.95], // Subtle scale animation
+              filter: [
+                "drop-shadow(4px 4px 40px rgba(255, 255, 260, 0.8))", // Light yellow
+                "drop-shadow(4px 4px 40px rgba(255, 200, 100, 0.6))", // Dark yellow
+                "drop-shadow(4px 4px 40px rgba(255, 255, 224, 0.8))", // Back to light yellow
+              ],
+            }}
+            transition={{
+              duration: 3, // Animation duration
+              ease: "easeInOut",
+              repeat: Infinity, // Loops indefinitely
+              times: [0, 0.5, 1], // Timing for the keyframes
+            }}
+          >
             PARASMANI
-          </h2>
+          </motion.h2>
         </motion.div>
       </footer>
     </main>
